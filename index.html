@@ -8,6 +8,18 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Last-resort message if the app fails before React can start (e.g. a file failed to load).
+      window.addEventListener('error', function (e) {
+        var root = document.getElementById('root')
+        if (root && !root.childElementCount) {
+          root.innerHTML = '<div style="max-width:640px;margin:12vh auto;font-family:Segoe UI,system-ui,sans-serif">' +
+            '<h1 style="color:#e3061b">FacePass couldn\'t start</h1><p>Please send this message to the developer:</p>' +
+            '<pre style="background:#f4f4f5;padding:12px;border-radius:8px;white-space:pre-wrap"></pre></div>'
+          root.querySelector('pre').textContent = (e.message || 'Unknown error') + (e.filename ? '\n' + e.filename : '')
+        }
+      }, true)
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
